@@ -19,7 +19,7 @@
   /* Layout: brand lockup on top, one calm task per screen for the patient (elderly-first, huge targets); split panes for doctor and partner center.
      Brand: Lamha red #B42D25 · care coral #D3543C · balance taupe #B9A690 · clarity off-white #F8F6F3. Triage colours stay semantic and fixed. */
   --bg:#F8F6F3;--surface:#FFFFFF;--surface-2:#F2EDE7;--ink:#2A1F1D;--muted:#6E615A;--line:#E7DED5;
-  --brand:#B42D25;--brand-2:#D3543C;--taupe:#B9A690;--taupe-ink:#7E6B58;--taupe-soft:#EEE6DC;--mark-filter:none;
+  --brand:#B42D25;--brand-2:#D3543C;--taupe:#B9A690;--taupe-ink:#7E6B58;--taupe-soft:#EEE6DC;--mark-filter:none;--hero-tile:transparent;--hero-pad:0px;
   --accent:#B42D25;--accent-ink:#FFFFFF;--accent-soft:#F7E4DF;
   --em:#C8161D;--em-soft:#FCE5E3;--em-strong:#A8151B;
   --ur:#A65300;--ur-soft:#FCEBD8;--ro:#7A5A00;--ro-soft:#F7EDCB;--sc:#19693D;--sc-soft:#DDF0E4;--re:#655950;--re-soft:#ECE6E0;
@@ -32,14 +32,14 @@
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#161110;--surface:#201917;--surface-2:#2A211F;--ink:#F4EEE8;--muted:#B5A79C;--line:#3A2E2A;
-  --brand:#E0574A;--brand-2:#E8735C;--taupe:#CDBBA5;--taupe-ink:#CDBBA5;--taupe-soft:#2F2623;--mark-filter:brightness(1.55) saturate(1.1);
+  --brand:#E0574A;--brand-2:#E8735C;--taupe:#CDBBA5;--taupe-ink:#CDBBA5;--taupe-soft:#2F2623;--mark-filter:brightness(1.55) saturate(1.1);--hero-tile:#FFFFFF;--hero-pad:12px;
   --accent:#C9433A;--accent-ink:#FFFFFF;--accent-soft:#3B1D1A;
   --em:#FF6B5E;--em-soft:#3B1614;--em-strong:#A8151B;
   --ur:#FFA347;--ur-soft:#3A2512;--ro:#EBC24A;--ro-soft:#342A0E;--sc:#5BD08F;--sc-soft:#113020;--re:#B4A89F;--re-soft:#2A2321;
   --shadow:0 1px 2px rgb(0 0 0 / .35),0 12px 32px rgb(0 0 0 / .3);color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#161110;--surface:#201917;--surface-2:#2A211F;--ink:#F4EEE8;--muted:#B5A79C;--line:#3A2E2A;
-  --brand:#E0574A;--brand-2:#E8735C;--taupe:#CDBBA5;--taupe-ink:#CDBBA5;--taupe-soft:#2F2623;--mark-filter:brightness(1.55) saturate(1.1);
+  --brand:#E0574A;--brand-2:#E8735C;--taupe:#CDBBA5;--taupe-ink:#CDBBA5;--taupe-soft:#2F2623;--mark-filter:brightness(1.55) saturate(1.1);--hero-tile:#FFFFFF;--hero-pad:12px;
   --accent:#C9433A;--accent-ink:#FFFFFF;--accent-soft:#3B1D1A;
   --em:#FF6B5E;--em-soft:#3B1614;--em-strong:#A8151B;
   --ur:#FFA347;--ur-soft:#3A2512;--ro:#EBC24A;--ro-soft:#342A0E;--sc:#5BD08F;--sc-soft:#113020;--re:#B4A89F;--re-soft:#2A2321;
@@ -106,7 +106,7 @@ main{max-width:1220px;margin:0 auto;padding-block:24px 48px;padding-left:max(16p
 .lead{font-size:21px;color:var(--muted)}
 .eyebrow{font-size:15px;font-weight:600;color:var(--brand);letter-spacing:.02em}
 .num{font-variant-numeric:tabular-nums;font-family:var(--font)}
-.ltr{direction:ltr;unicode-bidi:isolate}
+.ltr{direction:ltr;unicode-bidi:isolate;white-space:nowrap}
 .btn{min-height:56px;padding:10px 24px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;transition:transform .12s ease,background .2s ease,border-color .2s ease}
 .btn:hover{border-color:var(--accent)}
 .btn:active{transform:scale(.98)}
@@ -143,7 +143,7 @@ ul.dots{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;ga
 .welcome{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px;align-items:start}
 .hero{display:flex;flex-direction:column;gap:22px;background:linear-gradient(165deg,var(--surface) 52%,var(--accent-soft))}
 .lockup{display:grid;grid-template-columns:auto auto;column-gap:18px;row-gap:6px;align-items:center;justify-content:start}
-.lockup .logo-mark{grid-row:1 / span 2;width:clamp(84px,12vw,112px)}
+.lockup .logo-mark{grid-row:1 / span 2;width:clamp(84px,12vw,112px);filter:none;background-color:var(--hero-tile);background-origin:content-box;padding:var(--hero-pad);border-radius:24%;box-sizing:border-box}
 .lockup .logo-word{height:clamp(42px,6vw,56px);align-self:end}
 .lockup .latin-tag{align-self:start}
 .tagline{font-family:var(--display);font-size:clamp(34px,5.5vw,52px);font-weight:600;line-height:1.15}
@@ -215,7 +215,7 @@ canvas.meter{flex:1;min-width:160px;height:72px;border-radius:14px;background:va
 .chip[aria-pressed="false"]{border-color:var(--line);background:var(--surface);color:var(--muted);text-decoration:line-through}
 .chip[aria-pressed="false"] .mk{color:var(--muted)}
 .chip.flag{border-color:var(--em);background:var(--em-soft);color:var(--em)}
-.chip.flag::before{content:"!";display:grid;place-items:center;flex:none;width:24px;height:24px;border-radius:50%;background:var(--em);color:#fff;font-weight:700;font-size:15px}
+.chip.flag::before{content:"!";display:grid;place-items:center;flex:none;width:24px;height:24px;border-radius:50%;background:var(--em-strong);color:#fff;font-weight:700;font-size:15px}
 .chip.flag .mk{color:var(--em)}
 .qa{display:flex;flex-wrap:wrap;align-items:center;gap:12px;justify-content:space-between;padding:12px 16px;border-radius:16px;background:var(--surface-2)}
 .seg{display:flex;gap:6px}
@@ -1812,7 +1812,7 @@ function renderReport(res) {
     <section class="card stack"><h2>قياساتك ومعناها</h2><div class="vitals">${vitalRows(v, rec.pid, rec.id)}</div><p class="lead">${baselineSentence(flags, info, rec.pid)}</p></section>
     ${!em && draft.self_care.length ? `<section class="card stack"><h2>شو تعمل هلأ</h2><ul class="clean advice">${draft.self_care.map(i => `<li><span>${esc(i.text)}</span><span class="tag">${esc(i.card_id)}</span></li>`).join('')}</ul></section>` : ''}
     ${!em ? `<section class="card stack"><h2>اتصل بـ 911 فوراً إذا…</h2><ul class="clean warn911">${warnings.slice(0, 5).map(w => `<li>${esc(w)}</li>`).join('')}</ul>${warnings.length > 5 ? `<details><summary>علامات ثانية (${warnings.length - 5})</summary><ul class="clean warn911" style="margin-top:8px">${warnings.slice(5).map(w => `<li>${esc(w)}</li>`).join('')}</ul></details>` : ''}
-      ${seeDoc.length ? `<h3>راجع طبيب إذا…</h3><ul class="dots">${seeDoc.map(s => `<li>${esc(s)}</li>`).join('')}</ul>` : ''}
+      ${seeDoc.length ? `<details><summary>راجع طبيب إذا… (${seeDoc.length})</summary><ul class="dots" style="margin-top:8px">${seeDoc.map(s => `<li>${esc(s)}</li>`).join('')}</ul></details>` : ''}
       <p class="muted small">من بطاقات النصائح: ${Object.values(cards).map(c => esc(c.title_ar)).join('، ')} · ${esc(REVIEW)}</p></section>` : ''}
     ${!em && draft.questions_for_doctor.length ? `<section class="card stack"><h2>أسئلة تسألها للطبيب</h2><ul class="dots">${draft.questions_for_doctor.map(q => `<li>${esc(q)}</li>`).join('')}</ul></section>` : ''}
     <section class="card qr-box"><div class="qr" id="qr"></div><div class="stack" style="gap:6px"><h3>${em ? 'QR للمسعفين' : 'QR للطبيب'}</h3><p class="muted small">ملخص مضغوط بيقرأه أي موبايل بدون إنترنت. بدون اسم.</p></div></section>
@@ -2031,7 +2031,7 @@ function mountChart(c) {
   CHART?.destroy(); CHART = null;
   const col = { ink: cssVar('--ink'), muted: cssVar('--muted'), line: cssVar('--line'), accent: cssVar('--taupe-ink'), soft: cssVar('--taupe-soft'), em: cssVar('--em'), ro: cssVar('--ro'), roSoft: cssVar('--ro-soft'), font: cssVar('--font') };
   const good = H.good, bad = hist.filter(h => !h.ok), lastG = good[good.length - 1];
-  const xmin = Math.floor(Math.min(...hist.map(h => h.day))), xmax = H.fc && H.base ? lastG.day + 2.05 : 0.25;
+  const xmin = 2 * Math.floor(Math.min(...hist.map(h => h.day)) / 2), xmax = H.fc && H.base ? Math.max(2, lastG.day + 2) + 0.15 : 0.5;
   const ds = [];
   if (H.base) {
     const [m, sd] = H.base;
@@ -2042,7 +2042,7 @@ function mountChart(c) {
   if (H.fc && H.base) {
     const x1 = lastG.day + 2;
     ds.push({ order: 6, label: '_fcLo', data: [{ x: lastG.day, y: lastG.hr }, { x: x1, y: H.fc.low }], borderWidth: 0, pointRadius: 0, fill: false });
-    ds.push({ order: 6, label: 'مجال التوقع 80%', data: [{ x: lastG.day, y: lastG.hr }, { x: x1, y: H.fc.high }], borderWidth: 0, pointRadius: 0, backgroundColor: col.roSoft, borderColor: col.ro, borderWidth: 1, fill: '-1' });
+    ds.push({ order: 6, label: 'مجال التوقع (80%)', data: [{ x: lastG.day, y: lastG.hr }, { x: x1, y: H.fc.high }], borderWidth: 0, pointRadius: 0, backgroundColor: col.roSoft, borderColor: col.ro, borderWidth: 1, fill: '-1' });
     ds.push({ order: 4, label: 'التوقع (48 ساعة)', data: [{ x: lastG.day, y: lastG.hr }, { x: x1, y: H.fc.p50 }], borderColor: col.ro, backgroundColor: col.ro, borderDash: [7, 5], borderWidth: 2.5, pointRadius: [0, 5] });
   }
   ds.push({ order: 1, label: 'القراءات', data: good.map(h => ({ x: h.day, y: h.hr })), borderColor: col.ink, backgroundColor: col.ink, borderWidth: 2, pointRadius: 4.5, pointHoverRadius: 7, tension: 0.25 });
@@ -2072,12 +2072,15 @@ function mountChart(c) {
       interaction: { mode: 'nearest', intersect: false },
       layout: { padding: { top: 16 } },
       scales: {
-        x: { type: 'linear', min: xmin, max: xmax, grid: { color: col.line }, ticks: { color: col.muted, stepSize: 1, autoSkip: true, maxTicksLimit: 10, font: { family: col.font }, callback: d => (Math.abs(d) < 0.01 ? 'اليوم' : d > 0 ? '+' + Math.round(d * 24) + 'س' : String(d)) }, title: { display: true, text: 'الأيام (0 = اليوم)', color: col.muted, font: { family: col.font } } },
+        x: { type: 'linear', min: xmin, max: xmax, grid: { color: col.line },
+          // fixed 2-day grid that always includes «اليوم» and +48 h
+          afterBuildTicks: ax => { const t = []; for (let d = xmin; d <= 0; d += 2) t.push({ value: d }); if (xmax >= 2) t.push({ value: 2 }); ax.ticks = t; },
+          ticks: { color: col.muted, autoSkip: false, font: { family: col.font }, callback: d => (d === 0 ? 'اليوم' : d > 0 ? '+' + Math.round(d * 24) + 'س' : String(d)) }, title: { display: true, text: 'الأيام (0 = اليوم)', color: col.muted, font: { family: col.font } } },
         y: { grid: { color: col.line }, ticks: { color: col.muted, font: { family: col.font } }, title: { display: true, text: 'نبض / دقيقة', color: col.muted, font: { family: col.font } } },
       },
       plugins: {
-        legend: { rtl: true, labels: { color: col.ink, usePointStyle: true, font: { family: col.font, size: 13 }, filter: i => !i.text.startsWith('_') } },
-        tooltip: { rtl: true, filter: i => !i.dataset.label.startsWith('_'), callbacks: { title: it => dayLabel(it[0].parsed.x), label: i => `${i.dataset.label}: ${fmt(i.parsed.y, 1)}` } },
+        legend: { rtl: true, textDirection: 'rtl', labels: { color: col.ink, boxWidth: 12, boxHeight: 12, padding: 14, font: { family: col.font, size: 13 }, filter: i => !i.text.startsWith('_') } },
+        tooltip: { rtl: true, textDirection: 'rtl', filter: i => !i.dataset.label.startsWith('_'), callbacks: { title: it => dayLabel(it[0].parsed.x), label: i => `${i.dataset.label}: ${fmt(i.parsed.y, 1)}` } },
       },
     },
   });
